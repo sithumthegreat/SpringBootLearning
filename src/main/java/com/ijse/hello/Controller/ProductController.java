@@ -12,26 +12,36 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ijse.hello.dto.ProductReqDto;
+import com.ijse.hello.entity.Category;
 import com.ijse.hello.entity.ProductEntity;
+import com.ijse.hello.service.CategoryService;
 import com.ijse.hello.service.ProductService;
 
 @RestController
 public class ProductController {
     @Autowired
     private ProductService service;
+    @Autowired
+    private CategoryService categoryService;
 
     @PostMapping("/product")
-    public ResponseEntity<?> createProduct(@RequestBody ProductEntity entity){
-        if (entity.getName()==null || entity.getDescription()==""){
-            return ResponseEntity.status(400).body("Please Enter a Valid product Name");
-        }
-        if (entity.getPrice()==null){
-            return ResponseEntity.status(400).body("Please Enter a Price");
-        }
+    public ResponseEntity<?> createProduct(@RequestBody ProductReqDto productReqDto){
+        // if (productReqDto.getName()==null || productReqDto.getDescription()==""){
+        //     return ResponseEntity.status(400).body("Please Enter a Valid product Name");
+        // }
+        // if (productReqDto.getPrice()==null){
+        //     return ResponseEntity.status(400).body("Please Enter a Price");
+        // }
         try {
-            ProductEntity productEntity=service.createProduct(entity);
-            return ResponseEntity.status(201).body(productEntity);
-            
+            ProductEntity newProduct=new ProductEntity();
+            newProduct.setName(productReqDto.getName());
+            newProduct.setDescription(productReqDto.getDescription());
+            newProduct.setPrice(productReqDto.getPrice());
+            Category category=categoryService.getCategoryById(productReqDto.getCategoryId());
+            newProduct.setCategory(category);
+            ProductEntity createdProduct=service.createProduct(newProduct);
+            return ResponseEntity.status(201).body(createdProduct);                       
         } catch (Exception e) {
             return ResponseEntity.status(400).body(e.getMessage());
         }

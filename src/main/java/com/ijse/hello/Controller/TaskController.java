@@ -33,7 +33,7 @@ public class TaskController {
             return ResponseEntity.status(201).body(createdTask);
             
         } catch (Exception e) {
-            // TODO: handle exception
+           
             return ResponseEntity.status(400).body(e.getMessage());
         }
         

@@ -3,8 +3,9 @@ package com.ijse.hello.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.ijse.hello.entity.Student;
+import com.ijse.hello.entity.Order;
+
 @Repository
-public interface StudentRepository extends JpaRepository<Student,Long> {
+public interface OrderRepository extends JpaRepository<Order,Long>{
 
 }

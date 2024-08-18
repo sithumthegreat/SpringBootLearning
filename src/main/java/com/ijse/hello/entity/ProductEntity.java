@@ -23,7 +23,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ProductEntity {
     @Id
-    @GeneratedValue()
+    @GeneratedValue(strategy =GenerationType.IDENTITY )
     private Long id;
     @Column(nullable = false)
     private String name;
@@ -38,9 +38,11 @@ public class ProductEntity {
     @ManyToOne
     @JoinColumn(name = "CategoryId")
     private Category category;
-    
+     
     @JsonIgnore
-    @ManyToMany(mappedBy = "orderedProducts")
-    private List<Order> orders;
+    @ManyToMany(mappedBy="orderedProducts")
+    private List<OrderEntity> orders;
+    
+   
 
 }

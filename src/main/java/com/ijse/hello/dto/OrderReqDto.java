@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 @Getter
 @Setter
-public class OrderDto {
-    List<Long> productIds;
+public class OrderReqDto {
+    private List<Long> productIds;
 
 }
